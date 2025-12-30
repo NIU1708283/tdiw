@@ -1,0 +1,12 @@
+
+!!!!IMPORTANTE!!!!
+
+Funcionalitats que valorarem:
+
+- Llistat de categories
+- Llistat de productes amb AJAX
+- Detall de producte amb AJAX
+- Registre amb consultes parametritzades
+- Registre amb contrasenya xifrada
+- Menú d’usuari amb jQuery
+- Arquitectura MVC
