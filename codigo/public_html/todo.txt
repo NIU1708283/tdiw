@@ -1,0 +1,153 @@
+//TODO.txt//
+
+!!!!IMPORTANTE!!!!
+
+¿Qué hay que hacer para las proximas sesiones?:
+
+Sessión 5:
+- Validació registre (Client i Servidor)
+    Parcial. Existeix l'estructura, però cal verificar la lògica de filtratge i seguretat.
+- Filtratge de dades (filter_var)
+    Pendent. Cal revisar el model de registre.
+- Inici de sessió d'usuari (Login)
+    Fet/Parcial. Tenim iniciarsesio.php, cal verificar la gestió de $_SESSION.
+- Afegir productes al cabàs i visibilitat web
+    En curs. Tenim CartController.php, cal implementar la lògica de persistència.
+- Pàgina del cabàs
+    Fet. Tenim views/cart.php. 
+
+Sessión 6:
+- Confirmació de la comanda
+    Pendent.
+- Edició del perfil
+    En curs. Tenim PerfilController.php i perfil.php.
+- Llistat de comandes
+    Pendent.
+- Buidar el cabàs
+    Pendent.
+- Pujada d'imatge de perfil (Avatar)
+    Pendent.
+
+    //////////////////////// Properes sessions detallades ///////////////////////
+
+
+    //////////////////////////////////// SESSIÓ 5 //////////////////
+
+4 Feina durant la sessió i abans de la següent sessió
+
+4.1 Validació del registre d’usuaris a la banda del client
+Heu de validar a la part de client el formulari de registre d’un usuari. Podeu
+fer la validació amb Javascript o HTML5, com vosaltres vulgueu. La validació
+emprant Javascript serveix per als casos en què es vol personalitzar l’aparença
+i el missatge de l’error.
+Recordeu que la validació a la part de client és important sobretot per
+l’experiència d’usuari, però que sempre cal validar les dades al servidor, que
+és el següent punt a fer.
+
+4.2 Validació del registre d’usuaris a la banda del servidor
+En aquest punt el que heu de fer és validar les dades que us arriben del for
+mulari de registre a la part del servidor, amb PHP per assegurar-nos que són
+correctes. Amb PHP podeu fer servir la funció filter_var.
+
+4.3 Filtratge de dades
+Mai no es pot confiar en les dades que un usuari afegeix a les aplicacions
+web, encara que sigui l’administrador, perquè poden inserir codi maliciós
+que posi en risc la privacitat dels usuaris. Aquests atacs, anomenats XSS
+—Cross-Site Scripting—, s’eviten filtrant les dades a l’hora de mostrar-les
+a l’usuari. Filtrar vol dir escapar tots els caràcters que puguin fer que el
+navegador interpreti el contingut com un script de Javascript.
+Validar i filtrar són dues coses diferents i complementàries, una no subs
+titueix l’altra: validant ens assegurem que les dades que ens arriben tenen
+un format vàlid —per exemple, una adreça de correu electrònic. I filtrant
+ens assegurem que no ens insereixen codi maliciós.
+Per prevenir això, el que heu de fer és escapar el contingut que mostrareu
+de pantalla, de manera que els caràcters especials no seran interpretats pel
+navegador. Per fer-ho, en PHP podeu utilitzar la següent instrucció:
+$string = htmlentities($string, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+Per a la vostra pràctica, només us demanem fer-ho al llistat de categories amb el nom
+de les categories.
+
+4.4 Inici de sessió d’usuari
+Utilitzarem la variable superglobal $_SESSION per al manteniment de sessions a PHP.
+Mitjançant sessions implementarem l’inici de sessió d’un usuari a la vostra botiga. 
+Per fer-ho, heu d’aprofitar la pàgina d’inici de sessió (login) que vau fer a la primera 
+sessió de pràctiques, de manera que envieu les dades d’inici de sessió d’un usuari i 
+valideu que siguin correctes. Per validar que la contrasenya sigui correcta heu d’utilitzar 
+la funció password_verify de PHP.
+
+4.5 Afegir productes al cabàs de compra
+Utilitzant les sessions de PHP, heu d’implementar la funcionalitat d’afegir productes al
+cabàs de compra. A la pàgina de detall de producte que ja vau fer a la sessió anterior, heu
+de desenvolupar la funcionalitat d’afegir el producte al cabàs, especificant-ne la quantitat.
+El cabàs s’ha d’actualitzar, sense recarregar la pàgina, a través d’una crida AJAX (amb
+jQuery o Fetch), i ha de mostrar un missatge de resposta indicant si el producte s’ha afegit
+correctament o si, per contra, hi ha hagut cap error en fer el procés.
+Per implementar aquesta funcionalitat heu de fer servir sessions. En teniu una expli
+cació a l’apèndix. 
+
+4.6 Cabàs visible des de tot el web
+Al vostre web heu de tenir visible a totes les pàgines una petita secció amb el resum del
+cabàs de la compra, indicant-ne, almenys, el nombre total de productes que conté i el seu
+import total. Aquests valors els heu d’actualitzar quan afegiu productes al cabàs des del
+detall d’un producte. 
+
+4.7 Pàgina del cabàs
+Heu d’afegir una pàgina a la vostra botiga on es mostri el llistat de productes del carret
+amb les seves quantitats i imports. A aquesta pàgina heu d’afegir un botó —no funcional
+encara— per acabar la compra.
+
+
+////////////// SESSIÓ 6 //////////////////////////////
+
+4 Feina durant la sessió i abans de la següent sessió
+
+4.1 Pàgina de confirmació de la comanda
+Apartir de la pàgina del cabàs heu de permetre finalitzar la comanda prement
+el botó que vau afegir a l’anterior sessió. En confirmar la compra, heu de fer
+tres coses:
+• Desar la comanda de l’usuari a la base de dades.
+• Buidar el carro de l’usuari internament, perquè pugui continuar com
+prant.
+• Redirigir l’usuari a una pàgina de confirmació de compra on, opcio
+nalment, es vegi el resum de què ha comprat.
+
+Recordeu que un usuari que no hagi iniciat sessió no ha de poder fer
+una comanda, de manera que us caldrà fer aquesta comprovació abans no
+permeteu finalitzar la compra.
+
+4.2 Edició del perfil
+Amb aquesta funcionalitat el que heu d’implementar és un formulari on l’u
+suari pugui editar les seves dades. Aquest formulari ha de tenir les dades
+prèviament carregades. La pàgina amb aquest formulari l’heu d’afegir al
+menú desplegable de l’usuari
+A més a més, heu de permetre que l’usuari pugi una imatge de perfil que
+l’identifiqui.
+
+4.3 Llistat de comandes d’un usuari
+Aquesta funcionalitat consisteix a implementar el llistat de comandes realit
+zades per un usuari a la vostra botiga. La pàgina amb aquest formulari l’heu
+d’afegir al menú desplegable de l’usuari.
+
+4.4 Buidar el cabàs
+Heu d’afegir a la pàgina del cabàs un botó que permeti buidar-ne tots els
+productes que hi hagi. Aquesta funcionalitat la podeu implementar sense
+recarregar la pàgina, amb AJAX i jQuery, o recarregant la pàgina cada cop,
+com vosaltres desitgeu.
+
+4.5 Modificació dels productes del cabàs (opcional)
+Aquesta funcionalitat consisteix a modificar la pàgina del cabàs de la compra
+per permetre editar-ne les quantitats. Hi ha dues funcionalitats possibles a
+implementar:
+• Modificar la quantitat d’un producte. Us caldrà un input de text on
+poder modificar la quantitat.
+• Eliminar un producte del cabàs.
+Aquesta funcionalitat la podeu implementar sense recarregar la pàgina,
+ambAJAXijQuery, orecarregant la pàgina cada cop, com vosaltres desitgeu.
+Aquesta funcionalitat és opcional.
+
+4.6 Cercador de productes (opcional)
+Aquesta funcionalitat consisteix a implementar un cercador al vostre web
+que cerqui productes pel seu nom i, si així ho desitgeu, també a les seves
+descripcions, i en retorni els productes que coincideixen amb la cerca. 
+A la vostra pràctica ho podeu fer amb l’operador LIKE de PostgreSQL.
+Aquesta funcionalitat és opcional.
