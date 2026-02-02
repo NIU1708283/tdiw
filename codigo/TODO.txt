@@ -1,0 +1,357 @@
+////////////////////////////////////////////SESSIÓ 1 ///////////////////////////////////////////////////
+
+Per evitar que algú altre entri al vostre web i pugui fer accions no desitjables,
+com per exemple extreure-us els vostres recursos CSS o Javascript o registrar
+se com a usuari amb mots ofensius, l’accés a la vostra botiga està protegit
+amb el vostre usuari i contrasenya. Si el voleu canviar, podeu fer servir el
+fitxer ".htaccess", que és un fitxer de configuració que utilitza el servidor
+Apache. Aquest fitxer conté directives mitjançant les quals es pot configurar
+com ha de respondre el servidor en funció de la petició HTTP rebuda.
+Hi ha moltes possibilitats de configuració pel fitxer htaccess; vosaltres
+el fareu servir per restringir l’accés al directori web. Els passos a seguir per
+fer-ho són els següents:
+
+1. Creeu el fitxer .htaccess al vostre directori public_html. Tingueu
+present que els fitxers el nom dels quals comença amb punt són ocults
+als sistemes GNU/Linux i Unix (Mac), de manera que, per veure’l
+amb el navegador de fitxers, haureu d’activar la visualització de fitxers
+ocults. I, si voleu veure’l amb la línia d’ordres, amb la comanda ls,
+per exemple, hi heu d’afegir el flag-a:
+ls-lah
+2. Aquest fitxer ha de contenir les següents directives:
+1 AuthType Basic
+2 AuthName "Botiga online"
+3 AuthBasicProvider file
+4 AuthUserFile /home/TDIW/tdiw-{G}{S}/public_html/.htpasswd
+5 Require valid-user
+Cal que modifiqueu el valor de la directiva AuthUserFile i substituïu
+{G}{S} pel vostre grup i subgrup com, per exemple, a12.
+Desant aquest fitxer al directori public_html esteu restringint l’accés
+al vostre web als usuaris definits al fitxer
+/tdiw/TDIW/tdiw-{G}{S}/public_html/.htpasswd.
+3. Creeu ara un fitxer amb una contrasenya xifrada pel vostre usuari
+tdiw-{G}{S}. Per fer-ho, executeu la comanda següent:
+htpasswd-c .htpasswd tdiw-{G}{S}
+Aquesta comanda us demanarà una contrasenya, que serà la d’accés al
+vostre web cada cop que hi accediu des del navegador.
+Si ara reviseu el contingut del fitxer .htpasswd que acabeu de generar
+veureu que el contingut té el nom d’usuari i la contrasenya xifrada, com
+per exemple:
+tdiw-a12:$apr1$HFyzmybI$U0/iBrm6iVXxr08.KETFS.
+Podeu afegir tants usuaris com vulgueu, però amb un n’és suficient.
+4. Assegureu-vos que els dos fitxers creats, .htpasswd i .htaccess, tenen
+privilegis de lectura per a others.
+
+Si heu fet el procés correctament, a partir d’ara, en accedir a qualsevol
+pàgina del vostre web que estigui dins del directori public_html o als seus
+subdirectoris, el navegador us demanarà unes dades d’accés: tdiw-{G}{S} i
+la contrasenya que hi hàgiu configurat. Després que us hàgiu identificat amb
+èxit un cop, podreu navegar pel vostre web sense necessitat d’especificar
+el nom d’usuari i la vostra contrasenya durant tota la sessió de navegació.
+Quan tanqueu el navegador i el torneu a obrir haureu de tornar a introduir
+les vostres dades d’accés.
+Tingueu present que, si no teniu cap fitxer anomenat index.php o
+index.html a l’arrel del vostre directori, el servidor us retornarà un error
+403 indicant-vos que no s’ha pogut accedir al recurs. Nosaltres ja us hem
+deixat un fitxer index.html amb la informació de les pràctiques, de manera
+que no hauríeu de tenir cap error. Aquest fitxer l’haureu de substituir
+pels vostres fitxers quan ho necessiteu.
+Si voleu que l’accés al vostre web sigui lliure, al fitxer .htaccess hi haureu
+de d’escriure les següents directives:
+AuthType Basic
+AuthName "Botiga online"
+Require all granted
+
+
+Cal que desenvolupeu el layout —l’estructura— de la vostra botiga amb
+HTML5. Per fer-ho, comenceu implementant les següents pàgines:
+• Llistat de categories de productes.
+• Llistat de productes.
+• Detall de producte.
+Penseu que, a més a més de definir els fitxers HTML, necessitareu definir
+els fulls d’estils, en CSS3, en fitxers separats.
+Maquetar aquestes pàgines us servirà per definir l’estructura de la vostra
+botiga.
+En acabar de fer aquest apartat el vostre web hauria de tenir un estil
+visual propi, amb una estructura i combinació de colors propis. 
+Cal que desenvolupeu el formulari de registre d’un usuari en HTML5. De
+moment, no cal que el formulari sigui funcional ni que es validin les seves
+dades amb Javascript, però sí que podeu afegir-hi validació amb HTML5. El
+formulari de registre ha de tenir almenys aquestes dades:
+Nom - Només caràcters i espais.
+Adreça de correu electrònic - Ha de contenir un correu electrònic vàlid
+Password - Camp alfanumèric.
+Adreça - Pot contenir fins a 30 caràcters i espais.
+Població - Pot contenir fins a 30 caràcters i espais. Ha de contenir 5 dígits, i els heu de desar tots
+Codi Postal - Podeu fer servir la següent expressió regular per validar-lo: ˆ\d{5}$
+
+Igual que en el cas anterior, cal que desenvolupeu el formulari d’inici de
+sessió de l’usuari, però no cal que sigui funcional ni que hi afegiu validació
+amb Javascript, tot i que hi podeu afegir validació amb HTML5. Aquest
+formulari contindrà dos camps: un per escriure l’adreça de correu electrònic
+i un altre per escriure la contrasenya
+
+///////////////////////////////////////////////// SESSIÓ 2 ///////////////////////////////////////////
+
+Heu de fer tot el vostre web seguint l’arquitectura MVC. Per la vostra
+pràctica us recomanem tenir a l’arrel del vostre web —el directori public_html—
+un fitxer index.php que faci d’encaminador —en anglès, router—, és a dir,
+que rebi totes les peticions del web i executi les accions corresponents. Els
+vostres url, per tant, seran de la forma:
+index.php?accio=llistar-categories
+
+Amb els paràmetres de la query request de la operació GET especifiqueu
+l’acció a executar i tota la informació addicional que necessiteu per dur-la
+a terme —identificadors per fer filtres, paginacions... En aquest cas, amb
+el paràmetre accio especifiqueu que voleu obtenir el llistat de categories.
+Aleshores, al vostre fitxer index.php tindreu una cosa similar a això:
+<?php
+// index.php
+
+ $accio = $_GET['accio'] ?? NULL;
+ switch ($accio) {
+case 'llistar-categories':
+include __DIR__.'/resource_llistar_categories.php';
+break;
+default:
+include __DIR__.'/resource_portada.php';
+break;
+}
+Com veieu, el que fa l’encaminador és incloure el recurs adient en funció
+de l’acció sol·licitada. Les accions que hi ha definides són les del llistat de
+categories i la de la portada però, segons aneu afegint més funcionalitats
+pràctica, haureu d’afegir tantes accions com necessiteu.
+Un fitxer de recurs conté l’estructura de la pàgina sol·licitada, i inclou
+els controladors adients.
+
+Apartir d’aquí, se segueix el patró MVC estudiat a classe: el controlador
+demana al model les dades corresponents i les passa a la vista, que les rende
+ritza i mostra per pantalla.
+Un cop teniu més clar el funcionament de MVC amb un encaminador, el
+que heu de fer a continuació és:
+• Crear el vostre encaminador, index.php.
+• Crear els fitxers de recursos per les pàgines que ja heu desenvolupat.
+• Crear els directoris model, view i controller
+· Modificar les pàgines que ja heu desenvolupat perquè s’adaptin al patró MVC.
+
+Un cop tingueu el disseny validat pel vostre professor, heu de crear les taules
+a la base de dades i les relacions necessàries entre elles. Teniu a la vostra
+disposició el PHPMyAdmin, però podeu fer servir qualsevol altra eina o
+escriure vosaltres mateixos els scripts.
+Per a la vostra pràctica us recomanem que cada taula tingui un camp id
+autoincremental. Us llistem també els camps mínims que han de tenir els
+productes:
+• Nom
+• Imatge (de moment, deseu un camp de text per fer-hi referència)
+• Descripció
+• Preu
+Penseu, a més a més, si us és convenient tenir un camp booleà que indiqui
+si el producte és actiu o no, és a dir, si és visible o no a la botiga. Això us
+permetrà fer un esborrat lògic de productes, o publicar productes a una data
+concreta —per promocions, per exemple—, però aleshores heu de tenir en
+compte que només heu de mostrar els productes actius al frontend.
+També heu d’afegir dades de productes i categories a la base de dades
+perquè es visualitzin a la part pública del vostre web. Per fer-ho, de nou,
+podeu fer servir el PHPMyAdmin o qualsevol altra eina, o escriure vosaltres
+mateixos scripts que us afegeixin les dades a la base de dades. És important
+remarcar que no cal que us hi escarrasseu massa en les dades que afegiu, no
+cal que hi hagi moltíssimes dades ni que siguin molt completes, ja que aquest
+no és l’objectiu de la pràctica; és a dir, si, per exemple, féssiu un web on
+es venen videojocs, no cal que hi afegiu 1.000 títols amb la seva descripció
+completa i precisa, sinó que, amb uns 10 títols —o el que us permeti navegar
+pel web— ja n’hi ha prou.
+Pel model de dades de l’usuari, teniu tots els camps que necessiteu desar
+a l’enunciat de la sessió 1. També necessitareu un camp de text per desar
+la imatge de perfil de l’usuari. A la sessió 6 veurem com permetre a l’usuari
+pujarla imatge de perfil.
+
+Un cop tingueu el patró MVC aplicat i la base de dades creada i amb dades
+inserides, heu de fer el llistat dinàmic de categories, és a dir, mostrar a una
+pàgina la informació de les categories agafada de la base de dades. Tingueu
+en compte que no podeu fer servir subcategories, és a dir, no podeu tenir
+més d’un nivell de categories.
+
+////////////////////////////////////////// SESSIÓ 3 ///////////////////////////////////////////////
+
+Heu de modificar la pàgina del llistat de categories de manera que, en fer clic
+al títol —o la imatge, si és que en teniu— de cadascuna d’ella, es mostrin
+la informació resumida dels seus productes sense necessitat de recarregar la
+pàgina. Per implementar aquesta funcionalitat heu de fer crides FETCH.
+La informació dels productes que heu de mostrar a aquesta pàgina és la
+següent:
+• Títol.
+• Imatge.
+• Preu.
+• Opcionalment, un botó d’afegir al cabàs
+
+Igual que en el punt anterior, cal que mostreu la pàgina del detall d’un
+producte —la informació estesa— en fer clic a un producte des del seu llistat,
+emprant crides FETCH, és a dir, sense recarregar la pàgina.
+La informació dels productes que heu de mostrar al seu detall és la se
+güent:
+• Títol.
+• Descripció.
+• Imatge (de moment no la teniu, però ho podeu anar preparant).
+• Preu.
+• Botód’afegir al cabàs amb una quantitat, que encara no serà funcional.
+
+ Nota d’implementació: En PHP, per a fer una consulta que té
+com a resultat un únic registre, si utilitzeu la funció pg_fetch_all haureu
+d’utilitzar la funció forEach per recórrer l’array resultat del fetch que conté
+només un registre de la base de dades. En aquest cas és millor que utilitzeu
+la funció pg_fetch_assoc, que us retorna directament un únic registre
+de la base de dades.
+
+A partir del formulari de registre d’usuari que vau fer a la sessió 1, heu
+d’emmagatzemar les dades de l’usuari a la base de dades un cop s’enviï el
+formulari. De moment no us heu de preocupar de filtrar les dades ni a la
+part del client ni a la part del servidor, però sí que heu de tenir en compte
+dos aspectes de seguretat de vital importància:
+• Heu de xifrar la contrasenya. A PHP és molt senzill, heu de fer servir
+la funció password_hash, que és criptogràficament segura. Les
+contrasenyes sempre s’han de desar xifrades a la base de dades.
+Tingueu en compte que el camppassword a la base de dades ha
+de ser prou llarg (100chars) per poder guardar la contrasenya
+xifradda.
+• Heu de fer servir consultes parametritzades per emmagatzemar les da
+des de l’usuari. A la pràctica, per motius de planificació, només us de
+manem fer aquesta funcionalitat amb consultes parametritzades, però
+fóra bo que canviéssiu totes les consultes que ja teniu perquè s’executin
+com a consultes parametritzades, i que les noves consultes que feu a
+partir d’aquest moment les feu així. Utilitzar consultes parame
+tritzades permet evitar atacs d’injecció SQL.
+Tingueu present que, encara que feu el registre d’usuaris, de moment no
+podem iniciar sessió, això ho veurem a la següent sessió de pràctiques.
+☞Nota d’implementació (opcional): Si vulguéssiu implementar el
+registre d’usuari amb una crida en AJAX, per invocar l’escript de registre
+amb un POST i passar-li els camps del formulari.
+
+Heu d’afegir al vostre menú de navegació un menú desplegable amb les opci
+ons corresponents a la navegació de l’usuari; aquest menú l’heu d’implemen
+tar amb jQuery. Penseu que aquest menú encara no serà totalment funcional,
+i que variarà en funció de si l’usuari ha iniciat sessió al seu compte o no.
+Si l’usuari no ha iniciat sessió, l’única opció disponible al menú serà la
+d’iniciar sessió.
+En canvi, si l’usuari ha iniciat sessió, les opcions d’aquest menú seran les
+següents:
+• El meu compte.
+• Les meves compres.
+• Tancar sessió.
+
+//////////////////////////////////// SESSIÓ 4 //////////////////
+
+4.1 Validació del registre d’usuaris a la banda del client
+Heu de validar a la part de client el formulari de registre d’un usuari. Podeu
+fer la validació amb Javascript o HTML5, com vosaltres vulgueu. La validació
+emprant Javascript serveix per als casos en què es vol personalitzar l’aparença
+i el missatge de l’error.
+Recordeu que la validació a la part de client és important sobretot per
+l’experiència d’usuari, però que sempre cal validar les dades al servidor, que
+és el següent punt a fer.
+
+4.2 Validació del registre d’usuaris a la banda del servidor
+En aquest punt el que heu de fer és validar les dades que us arriben del 
+formulari de registre a la part del servidor, amb PHP per assegurar-nos que són
+correctes. Amb PHP podeu fer servir la funció filter_var.
+
+4.3 Filtratge de dades
+Mai no es pot confiar en les dades que un usuari afegeix a les aplicacions
+web, encara que sigui l’administrador, perquè poden inserir codi maliciós
+que posi en risc la privacitat dels usuaris. Aquests atacs, anomenats XSS
+—Cross-Site Scripting—, s’eviten filtrant les dades a l’hora de mostrar-les
+a l’usuari. Filtrar vol dir escapar tots els caràcters que puguin fer que el
+navegador interpreti el contingut com un script de Javascript.
+Validar i filtrar són dues coses diferents i complementàries, una no subs
+titueix l’altra: validant ens assegurem que les dades que ens arriben tenen
+un format vàlid —per exemple, una adreça de correu electrònic. I filtrant
+ens assegurem que no ens insereixen codi maliciós.
+Per prevenir això, el que heu de fer és escapar el contingut que mostrareu
+de pantalla, de manera que els caràcters especials no seran interpretats pel
+navegador. Per fer-ho, en PHP podeu utilitzar la següent instrucció:
+$string = htmlentities($string, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+Per a la vostra pràctica, només us demanem fer-ho al llistat de categories amb el nom
+de les categories.
+
+4.4 Inici de sessió d’usuari
+Utilitzarem la variable superglobal $_SESSION per al manteniment de sessions a PHP.
+Mitjançant sessions implementarem l’inici de sessió d’un usuari a la vostra botiga. 
+Per fer-ho, heu d’aprofitar la pàgina d’inici de sessió (login) que vau fer a la primera 
+sessió de pràctiques, de manera que envieu les dades d’inici de sessió d’un usuari i 
+valideu que siguin correctes. Per validar que la contrasenya sigui correcta heu d’utilitzar 
+la funció password_verify de PHP.
+
+4.5 Afegir productes al cabàs de compra
+Utilitzant les sessions de PHP, heu d’implementar la funcionalitat d’afegir productes al
+cabàs de compra. A la pàgina de detall de producte que ja vau fer a la sessió anterior, heu
+de desenvolupar la funcionalitat d’afegir el producte al cabàs, especificant-ne la quantitat.
+El cabàs s’ha d’actualitzar, sense recarregar la pàgina, a través d’una crida AJAX (amb
+jQuery o Fetch), i ha de mostrar un missatge de resposta indicant si el producte s’ha afegit
+correctament o si, per contra, hi ha hagut cap error en fer el procés.
+Per implementar aquesta funcionalitat heu de fer servir sessions. En teniu una 
+explicació a l’apèndix. 
+
+4.6 Cabàs visible des de tot el web
+Al vostre web heu de tenir visible a totes les pàgines una petita secció amb el resum del
+cabàs de la compra, indicant-ne, almenys, el nombre total de productes que conté i el seu
+import total. Aquests valors els heu d’actualitzar quan afegiu productes al cabàs des del
+detall d’un producte. 
+
+4.7 Pàgina del cabàs
+Heu d’afegir una pàgina a la vostra botiga on es mostri el llistat de productes del carret
+amb les seves quantitats i imports. A aquesta pàgina heu d’afegir un botó —no funcional
+encara— per acabar la compra.
+
+
+////////////// SESSIÓ 5 //////////////////////////////
+
+
+4.1 Pàgina de confirmació de la comanda
+Apartir de la pàgina del cabàs heu de permetre finalitzar la comanda prement
+el botó que vau afegir a l’anterior sessió. En confirmar la compra, heu de fer
+tres coses:
+• Desar la comanda de l’usuari a la base de dades.
+• Buidar el carro de l’usuari internament, perquè pugui continuar com
+prant.
+• Redirigir l’usuari a una pàgina de confirmació de compra on, opcio
+nalment, es vegi el resum de què ha comprat.
+
+Recordeu que un usuari que no hagi iniciat sessió no ha de poder fer
+una comanda, de manera que us caldrà fer aquesta comprovació abans no
+permeteu finalitzar la compra.
+
+4.2 Edició del perfil
+Amb aquesta funcionalitat el que heu d’implementar és un formulari on l’u
+suari pugui editar les seves dades. Aquest formulari ha de tenir les dades
+prèviament carregades. La pàgina amb aquest formulari l’heu d’afegir al
+menú desplegable de l’usuari
+A més a més, heu de permetre que l’usuari pugi una imatge de perfil que
+l’identifiqui.
+
+4.3 Llistat de comandes d’un usuari
+Aquesta funcionalitat consisteix a implementar el llistat de comandes 
+realitzades per un usuari a la vostra botiga. La pàgina amb aquest formulari l’heu
+d’afegir al menú desplegable de l’usuari.
+
+4.4 Buidar el cabàs
+Heu d’afegir a la pàgina del cabàs un botó que permeti buidar-ne tots els
+productes que hi hagi. Aquesta funcionalitat la podeu implementar sense
+recarregar la pàgina, amb AJAX i jQuery, o recarregant la pàgina cada cop,
+com vosaltres desitgeu.
+
+4.5 Modificació dels productes del cabàs (opcional)
+Aquesta funcionalitat consisteix a modificar la pàgina del cabàs de la compra
+per permetre editar-ne les quantitats. Hi ha dues funcionalitats possibles a
+implementar:
+• Modificar la quantitat d’un producte. Us caldrà un input de text on
+poder modificar la quantitat.
+• Eliminar un producte del cabàs.
+Aquesta funcionalitat la podeu implementar sense recarregar la pàgina,
+ambAJAXijQuery, orecarregant la pàgina cada cop, com vosaltres desitgeu.
+Aquesta funcionalitat és opcional.
+
+4.6 Cercador de productes (opcional)
+Aquesta funcionalitat consisteix a implementar un cercador al vostre web
+que cerqui productes pel seu nom i, si així ho desitgeu, també a les seves
+descripcions, i en retorni els productes que coincideixen amb la cerca. 
+A la vostra pràctica ho podeu fer amb l’operador LIKE de PostgreSQL.
+Aquesta funcionalitat és opcional.
